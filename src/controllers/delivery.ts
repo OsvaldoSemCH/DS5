@@ -47,4 +47,39 @@ export default class DeliveryController
             res.status(400).send({message: "Could not change Delivery status"})
         }
     }
+
+    static async Track(req: Request, res: Response)
+    {
+        const id = req.params.id;
+
+        const result = await DeliveryService.Track(id);
+        if(result)
+        {
+            let speed;
+            if(result.carrier.transportation_type == "aquatico")
+            {
+                speed = 5
+            }else
+            if(result.carrier.transportation_type == "terrestre")
+            {
+                speed = 3
+            }else
+            {
+                speed = 2
+            }
+            let date = new Date()
+            date.setDate(date.getDate() + speed);
+            res.status(200).send(
+                {
+                    order: result.order._id,
+                    status: result.status,
+                    carrier: result.carrier.name,
+                    predicted_delivery: `${date.getFullYear}-${date.getMonth}-${date.getDate()}`
+                }
+            )
+        }else
+        {
+            res.status(400).send({message: "Could not change Delivery status"})
+        }
+    }
 }

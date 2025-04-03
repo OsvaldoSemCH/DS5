@@ -5,6 +5,7 @@ import CarrierRoutes from './carrier.ts';
 import ProductRoutes from './product.ts';
 import OrderRoutes from './order.ts';
 import DeliveryRoutes from './delivery.ts';
+import DeliveryController from '../controllers/delivery.ts';
 
 export default function InitRoutes(app: Express)
 {
@@ -14,4 +15,5 @@ export default function InitRoutes(app: Express)
     app.use("/products", ProductRoutes)
     app.use("/orders", OrderRoutes)
     app.use("/deliveries", DeliveryRoutes)
+    app.get("/tracking/:id", DeliveryController.Track)
 }

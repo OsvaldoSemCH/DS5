@@ -1,4 +1,6 @@
+import { ICarrier } from "../models/carrier.ts";
 import DeliveryModel, { IDelivery } from "../models/delivery.ts";
+import { IOrder } from "../models/order.ts";
 
 export default class DeliveryService
 {
@@ -41,6 +43,24 @@ export default class DeliveryService
         {
             const result = await DeliveryModel.findByIdAndUpdate(id, {status: status});
             return result;
+        }catch(error)
+        {
+            return null;
+        }
+    }
+
+    static async Track(id: string)
+    {
+        try
+        {
+            const delivery = await DeliveryModel.findOne({order: id})
+            if(delivery)
+            {
+                return await (await delivery.populate<{order : IOrder}>("order")).populate<{carrier: ICarrier}>("carrier")
+            }else
+            {
+                return null
+            }
         }catch(error)
         {
             return null;
