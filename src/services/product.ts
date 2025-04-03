@@ -35,7 +35,7 @@ export default class ProductService
     {
         try
         {
-            const result = await ProductModel.deleteOne({_id: id});
+            const result = await ProductModel.findByIdAndDelete(id);
             return result;
         }catch(error)
         {

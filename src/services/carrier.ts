@@ -1,4 +1,5 @@
 import CarrierModel, { ICarrier } from "../models/carrier.ts";
+import { IDelivery } from "../models/delivery.ts";
 
 export default class CarrierService
 {
@@ -19,7 +20,7 @@ export default class CarrierService
     {
         try
         {
-            const result = await CarrierModel.findOne({_id: id}).populate("deliveries");
+            const result = await CarrierModel.findById(id).populate<{deliveries : IDelivery[]}>("deliveries");
             if(result)
             {
                 return result.deliveries;

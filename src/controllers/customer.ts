@@ -34,7 +34,7 @@ export default class CustomerController
             res.status(200).send(result)
         }else
         {
-            res.status(400).send({message: "Could not find customer"})
+            res.status(404).send({message: "Could not find customer"})
         }
     }
 
@@ -50,5 +50,19 @@ export default class CustomerController
         {
             res.status(400).send({message: "Could not delete customer"})
         }
+    }
+
+    static async Login(req: Request, res: Response)
+    {
+        const {email,password} = req.body;
+        const result = await CustomerService.Login({email, password});
+
+        if(!result)
+        {
+            res.status(400).send({message:"Invalid Email or password"});
+            return
+        }
+
+        res.status(200).send({token:result})
     }
 }

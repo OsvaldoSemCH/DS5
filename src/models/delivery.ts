@@ -5,8 +5,8 @@ import { ICarrier } from './carrier.ts';
 interface IDelivery extends Document
 {
     _id : string;
-    order : IOrder;
-    carrier : ICarrier;
+    order : mongoose.Types.ObjectId;
+    carrier : mongoose.Types.ObjectId;
     status : string;
 }
 

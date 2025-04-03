@@ -9,7 +9,7 @@ interface ICustomer extends Document
     password: string;
     phone: string;
     address: string;
-    orders : IOrder[];
+    orders : mongoose.Types.ObjectId[];
 }
 
 export {ICustomer};
@@ -21,7 +21,7 @@ const CustomerSchema: Schema = new Schema
     password: { type: String, required: true },
     phone: { type: String, required: true },
     address: { type: String, required: true, unique: true },
-    order: [{type: mongoose.Schema.Types.ObjectId, ref: "Order"}]
+    orders: [{type: mongoose.Schema.Types.ObjectId, ref: "Order"}]
 });
 
 const CustomerModel = mongoose.model<ICustomer>("Customer", CustomerSchema);

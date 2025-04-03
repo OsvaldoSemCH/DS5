@@ -9,5 +9,10 @@ export function VerifyCarrierRegister(req : Request, res : Response, next : Next
         res.status(400).send({message: "Dados incompletos"})
         return;
     }
+    if(Data.cnpj.length != 14)
+    {
+        res.status(400).send({message: "CNPJ inválido"});
+        return;
+    }
     next();
 }

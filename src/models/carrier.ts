@@ -7,7 +7,7 @@ interface ICarrier extends Document
     name : string
     transportation_type : string;
     cnpj : string;
-    deliveries : IDelivery[];
+    deliveries : mongoose.Types.ObjectId[];
 }
 
 export {ICarrier};

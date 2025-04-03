@@ -6,9 +6,8 @@ import { IProduct } from './product.ts';
 interface IOrder extends Document
 {
     _id : string;
-    customer : ICustomer;
-    products : IProduct;
-    carrier : ICarrier | null;
+    customer : mongoose.Types.ObjectId;
+    products : mongoose.Types.ObjectId[];
     status : string;
 }
 
@@ -18,7 +17,6 @@ const OrderSchema: Schema = new Schema
 ({
     customer: {type: mongoose.Schema.Types.ObjectId, ref: "Customer"},
     products: [{type: mongoose.Schema.Types.ObjectId, ref: "Product"}],
-    carrier: {type: mongoose.Schema.Types.ObjectId, ref: "Carrier"},
     status: {type: String, required: true},
 });
 
